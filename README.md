@@ -42,13 +42,13 @@ What belongs in your JavaScript Starter Kit?
 
 ### JavaScript Editors
 
-- Atom
+- #### Atom
 
-- WebStorm **(author's favorite)**
+- #### WebStorm **(author's favorite)**
 
-- Brackets
+- #### Brackets
 
-- VSCode **(author's choice)**
+- #### VSCode **(author's choice)**
 
 
 ### EditorConfig
@@ -66,20 +66,27 @@ Selected npm, pretty much the defacto standard now
 
 ### Security Scanning for Packages
 
-- retire.js
-- Node Security Platform **(author's choice)**
-  - nsp check
+- #### retire.js
+
+- #### Node Security Platform **(author's choice)**
+
+  - `nsp check`
 
 
 ## Module #4:  Development Webserver
 
-- http-server
+- #### http-server
+
   - Ultra-simple
   - Single command serves up server
-- live-server
+
+- #### live-server
+
   - Lightweight
   - Support live-reloading
-- Express **(author's choice)**
+
+- #### Express **(author's choice)**
+
   - Comprehensive
   - Highly configurable
     - Not just for static files
@@ -89,14 +96,20 @@ Selected npm, pretty much the defacto standard now
   - Alternatives:
     - koa
     - hapi
-- budo
+
+- #### budo
+
   - Integrates with Browserify
   - Includes hot reloading
-- Webpack dev server
+
+- #### Webpack dev server
+
   - Built in to Webpack
   - Serves from memory
   - Includes hot reloading
-- Browsersync
+
+- #### Browsersync
+
   - Dedicated IP for sharing work on LAN
   - All interactions remain in sync
     - Across devices, etc.
@@ -115,38 +128,141 @@ Used `node .\buildScripts\srcServer.js` command to leverage our script to run Ex
 
 Alternatives to using traditional Cloud services such as AWS and Azure.
 
-- localtunnel **(author's choice)**
+- #### localtunnel **(author's choice)**
+
   - Easily share work on your local machine
-    - npm install localtunnel -g
+    - `npm install localtunnel -g`
     - start your app
-    - lt --port 3000 --subdomain kevin
+    - `lt --port 3000 --subdomain kevin`
       - Creates:  http://kevin.localtunnel.me
-- ngrok
+
+- #### ngrok
+
   - Secure tunnel to your local machine
   - Pretty easy to share work
     - Install ngrok
     - Install authtoken
     - Start your app
-    - ./ngrok http 80
+    - `./ngrok http 80`
   - Secure
-- Surge
+
+- #### Surge
+
   - Quickly host static files to public URL
   - Setup
-    - npm install -g surge
-    - surge
+    - `npm install -g surge`
+    - `surge`
   - Different approach
   - Hosting persists
-- now
+
+- #### now
+
   - Quickly deploy Node.js to the cloud
   - To use
-    - npm install -g now
+    - `npm install -g now`
     - Create start script
     - now
   - Hosting persists
 
 ## Module #5:  Automation
 
+- #### Grunt
 
+  - the "original"
+  - configuration over code
+  - writes intermediary files between steps
+  - large plugin ecosystem
+
+- #### Gulp
+
+  - in-memory streams; pipes
+    - no files
+  - fast
+  - code over configuration; code-based
+  - large plugin ecosystem
+
+- #### npm Scripts **(author's choice)**
+
+  - declared in package.json
+  - leverage your OS' command line
+  - directly use npm packages
+  - call separate Node scripts
+  - convention-based pre/post hooks
+  - leverage world's largest package manager
+
+### Why npm Scripts (over Gulp)?
+
+- Use tools directly
+- No need for separate plugins
+- Simpler debugging
+- Better documentation
+- Easy to learn
+- Simple
+
+Author wrote interesting article on why he migrated from Gulp to npm Scripts:
+
+[bit.ly/npmvsgulp](bit.ly/npmvsgulp)
+
+### npm Scripts
+
+#### package.json Changes
+
+All of these changes are to be made in the "scripts" block near the top of the file.
+
+- Add start:
+
+  ```javascript
+  "start":"node buildScripts/srcServer.js"
+  ```
+
+  - `npm start` to start up the local webserver
+
+- Add prestart:
+
+  ```javascript
+  "prestart":"node buildScripts/startMessage.js"
+  ```
+
+  - This script uses a library called Chalk to add a colored message to the console when we run npm start
+
+- Add security-check (nsp):
+
+  ```javascript
+  "security-check": "nsp check"
+  ```
+
+  - `npm run security-check`
+  - Note:  npm start, npm test are the *only* commands where you can avoid typing **run**
+
+- Add share (localtunnel):
+
+  ```javascript
+  "share": "lt --port 3000 --subdomain kevin"
+  ```
+
+  - `npm run share`
+  - This will launch `http://kevin.localtunnel.me`
+
+- Add "open:src" and Update "start" (npm-run-all):
+
+  ```javascript
+  "start": "npm-run-all --parallel security-check open:src"
+  "open:src": "node buildScripts/srcServer.js"
+  ```
+  - Note:  `npm-run-all` allows us to run 1-n of the scripts in parallel
+
+- Add "localtunnel" and Update "share" (npm-run-all)
+
+  ```javascript
+  "localtunnel": "lt --port 3000 --subdomain kevin"
+  "share": "npm-run-all --parallel open:src localtunnel"
+  ```
+  - `npm run share` now starts up our server and exposes it via localtunnel all at once!
+
+#### Conventions:
+
+- In  an npm script, like package.json (above), we can append the prefixes "pre" and "post" to a given script in order to run another script before (pre) or after (post)
+  - Examples:  "prestart" - will get run *before* "start", "poststart" - will get run *after* "start"
 
 ## Bibliography
 
