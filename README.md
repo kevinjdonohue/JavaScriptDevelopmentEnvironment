@@ -44,20 +44,107 @@ What belongs in your JavaScript Starter Kit?
 
 - Atom
 
-- WebStorm (author's favorite)
+- WebStorm **(author's favorite)**
 
 - Brackets
 
-- VSCode (used in the course)
+- VSCode **(author's choice)**
 
 
 ### EditorConfig
 
+Best way to align configuration in your editors
 
+- Create a .editorconfig file
+- Many editors require a plugin
 
 ## Module #3:  Package Management
 
-## Module #4:  Development Web Server
+### JavaScript Package Managers
+
+Selected npm, pretty much the defacto standard now
+
+### Security Scanning for Packages
+
+- retire.js
+- Node Security Platform **(author's choice)**
+  - nsp check
+
+
+## Module #4:  Development Webserver
+
+- http-server
+  - Ultra-simple
+  - Single command serves up server
+- live-server
+  - Lightweight
+  - Support live-reloading
+- Express **(author's choice)**
+  - Comprehensive
+  - Highly configurable
+    - Not just for static files
+  - Production grade
+    - Run it everywhere
+  - Goes good with node
+  - Alternatives:
+    - koa
+    - hapi
+- budo
+  - Integrates with Browserify
+  - Includes hot reloading
+- Webpack dev server
+  - Built in to Webpack
+  - Serves from memory
+  - Includes hot reloading
+- Browsersync
+  - Dedicated IP for sharing work on LAN
+  - All interactions remain in sync
+    - Across devices, etc.
+  - Great for cross-device testing
+    - Literally syncs across multiple browsers in real time
+  - Browsersync recipes available
+  - Integrates with Webpack, Express
+
+### Express Webserver
+
+Created srcServer.js file to configure and run Express.
+
+Used `node .\buildScripts\srcServer.js` command to leverage our script to run Express.
+
+### Sharing Work-in-progress
+
+Alternatives to using traditional Cloud services such as AWS and Azure.
+
+- localtunnel **(author's choice)**
+  - Easily share work on your local machine
+    - npm install localtunnel -g
+    - start your app
+    - lt --port 3000 --subdomain kevin
+      - Creates:  http://kevin.localtunnel.me
+- ngrok
+  - Secure tunnel to your local machine
+  - Pretty easy to share work
+    - Install ngrok
+    - Install authtoken
+    - Start your app
+    - ./ngrok http 80
+  - Secure
+- Surge
+  - Quickly host static files to public URL
+  - Setup
+    - npm install -g surge
+    - surge
+  - Different approach
+  - Hosting persists
+- now
+  - Quickly deploy Node.js to the cloud
+  - To use
+    - npm install -g now
+    - Create start script
+    - now
+  - Hosting persists
+
+## Module #5:  Automation
 
 
 
