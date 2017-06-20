@@ -216,6 +216,7 @@ All of these changes are to be made in the "scripts" block near the top of the f
   ```
 
   - `npm start` to start up the local webserver
+  - `npm start -s` (silent) to start up the local webserver without any output
 
 - Add prestart:
 
@@ -263,6 +264,57 @@ All of these changes are to be made in the "scripts" block near the top of the f
 
 - In  an npm script, like package.json (above), we can append the prefixes "pre" and "post" to a given script in order to run another script before (pre) or after (post)
   - Examples:  "prestart" - will get run *before* "start", "poststart" - will get run *after* "start"
+
+## Module #6:  Transpiling
+
+### Choosing a Transpiler
+
+- #### Babel (author's choice)
+
+  - Modern, standards-based JS, today; transpiles down to ES5
+  - Write standardized JavaScript
+  - Leverage full JS Ecosystem
+  - Use experimental features earlier
+  - No type definitions required
+  - No data annotations required
+  - ES6 imports are statically analyzable
+  - Test + Lint + Babel + Great Libraries + IDE == safety
+
+- #### TypeScript
+
+  - Superset of JavaScript
+  - Enhanced Autocompletion
+  - Enhanced readability
+  - Safer refactoring
+  - Clearer intent
+  - Additional, non-standard features
+
+- #### Elm
+
+  - Functional style language
+  - Compiles down to JS
+  - Clean Syntax
+  - Immutable data structures
+  - Friendly errors
+  - All errors are compile-time errors
+  - Interoperates with JS
+
+### Babel
+
+#### Configuration Styles
+
+| .babelrc                      | package.json                  |
+| ----------------------------- | ----------------------------- |
+| Not npm specific              | One less file in your project |
+| Easier to read since isolated |                               |
+|                               |                               |
+
+#### Plugins
+
+| Preset                      | Approach          |
+| --------------------------- | ----------------- |
+| babel-preset-es2015-node    | Version Detection |
+| babel-preset-latest-minimal | Feature Detection |
 
 ## Bibliography
 
