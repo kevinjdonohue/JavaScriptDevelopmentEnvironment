@@ -609,6 +609,115 @@ As a team go through the available linting rules and decide which ones to includ
 }
 ```
 
+## Module #9:  Testing and Continuous Integration 
+
+### Testing Styles
+
+- Unit Testing
+- Integration Testing
+- UI Testing
+
+### Testing Frameworks
+
+- #### Mocha (author's choice)
+
+  - Most popular
+  - Highly configurable
+  - Large eco-system of support
+
+- #### Jasmine
+
+  - Popular
+  - Includes assertion library
+
+- #### Tape
+
+  - Lean
+  - Simple
+  - Minimal configuration
+
+- #### QUnit
+
+  - Oldest; jQuery
+
+- #### AVA
+
+  - Runs tests in parallel
+  - Only re-runs impacted tests
+
+- #### Jest
+
+  - Facebook
+  - Popular for React developers
+  - Wrapper for Jasmine
+  - Code Coverage
+  - JSDOM
+  - Popular convention for finding test files
+
+### Assertion Libraries
+
+- Chai (author's choice)
+- ShouldJS
+- Expect
+
+### Helper Libraries
+
+- #### JSDOM (author's choice)
+
+  - Simulate the browser's DOM
+  - Run DOM-related tests without a browser
+
+- #### Cheerio
+
+  - jQuery for the server
+    - Query virtual DOM using jQuery selectors
+
+### Where To Run Tests
+
+- In a browser
+  - Karma, Testem
+- In a Headless browser
+  - PhantomJS
+- In-memory DOM (author's choice - see above)
+  - JSDOM
+
+### Where Do Test Files Belong?
+
+- Centralized
+  - Mocha
+  - Folder called "Tests"
+  - Less "noise" in src folder
+  - Deployment confusion
+  - Inertia
+- Alongside (author's choice)
+  - Easy imports
+  - Clear visibility
+  - Convenient to open
+  - No recreating folder structure
+  - Easy file moves
+
+### File Naming Convention
+
+- filename.spec.js
+- filename.test.js
+
+### When Should Unit Tests Run?
+
+- When you hit save
+- Rapid feedback
+- Facilitates TDD
+- Automatic; low friction
+- Increases test visibility
+
+### Testing Plan
+
+- Mocha Framework
+- Chai Assertion Library
+- JSDOM Helper Library (In-Memory DOM)
+- Node to run our tests
+- Place our test files alongside the actual files (using filename.spec.js or filename.test.js?)
+- Tests will run everytime we save
+
 
 
 ## Bibliography
