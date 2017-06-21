@@ -718,6 +718,36 @@ As a team go through the available linting rules and decide which ones to includ
 - Place our test files alongside the actual files (using filename.spec.js or filename.test.js?)
 - Tests will run everytime we save
 
+### Continuous Integration (CI)
+
+- Run automated build
+- Run your tests
+- Check your code coverage
+- Deploy your code
+
+### CI Servers
+
+- #### Travis (author's choice for linux/mac)
+
+  - Popular
+  - Hosted Solution
+
+- #### Appveyor (author's choice for windows)
+
+  - Windows support
+  - Hosted Solution
+
+- #### Jenkins
+
+  - Popular
+  - Installed
+
+- #### circleCI
+
+- #### Semaphore
+
+- #### SnapCI
+
 
 
 ## Bibliography
