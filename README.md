@@ -443,7 +443,171 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 #### Sourcemaps
 
+- Maps code back to original source
+- Part of our build
+- Downloaded if you open developer tools; downloaded only when needed
 
+## Module #8:  Linting
+
+### Why Lint?
+
+#### Enforce Consistency
+
+- Curly brace position
+- confirm / alert 
+- Trailing commas
+- Globals
+- eval
+
+#### Avoid Mistakes
+
+- Extra parenthesis
+- Overwriting function
+- Assignment in conditional
+- Missing default case in switch
+- debugger / console.log
+
+#### Linters
+
+- ##### JSLint
+
+  - Douglas Crockford
+  - Original
+
+- ##### JSHint
+
+- ##### ESLint (author's choice)
+
+  - Defacto Standard
+
+- ##### TSLint
+
+  - For TypeScript until their is support for it in ESLint
+
+#### ESLint
+
+##### Configuration Formats
+
+- Five formats allowed
+  - .eslintrc.js
+  - .eslintrc.yaml
+  - .eslintrc.yml
+  - .eslintrc.json
+  - .eslintrc
+  - package.json
+
+##### Comparing Configuration Options
+
+| Dedicated config file | package.json  |
+| --------------------- | ------------- |
+| Not tied to npm       | One less file |
+
+- `package.json` - add a new section to package.json
+- Note:  the block of JSON added to the package.json file is the same block if you go the dedicated config file route.
+
+```javascript
+"eslintConfig": {
+  "plugins": ["example"],
+    "env": {
+      "example/custom": true
+    }
+}
+```
+
+##### Rules
+
+As a team go through the available linting rules and decide which ones to include.
+
+##### Warnings or Errors (re: Rules)
+
+| Warning                        | Error                    |
+| ------------------------------ | ------------------------ |
+| Can continue development       | Breaks the build         |
+| Can be ignored                 | Cannot be ignored        |
+| Team must agree:  Fix warnings | Team is forced to comply |
+
+##### Plugins
+
+##### Preset
+
+- From scratch
+- ESLint's Recommended (author's recommendation)
+- Presets
+  - airbnb
+  - standardJS
+  - XO
+
+##### Watching files with ESLint
+
+- eslint-loader
+  - Re-lints all files upon save
+  - Depends upon Webpack
+- eslint-watch (author's choice)
+  - ESLint wrapper that adds file watch
+  - Not tied to Webpack
+  - Better warning and error formatting
+  - Displays clean message
+  - Easily lint tests and build scripts too
+
+##### Linting Experimental Features
+
+- Run ESLint directly
+  - Supports ES6 and ES7 natively
+  - Also supports object spread 
+- Babel-eslint
+  - Also lints stage1-stage4 features
+
+##### Why Lint via automated build process?
+
+- Single place to check
+- Universal configuration
+- Part of continuous integration (CI)
+
+##### Linting Plan
+
+- Use ESLint Recommended rules
+- Use `eslint-watch`
+- Add lint configuration to the root of the project via `.eslintrc.json` file
+- See `.eslintrc.json` for details - to override any rules (we do so in the rules section of the file)
+
+```javascript
+...
+"exptends": [
+  "eslint:recommended",
+  "plugin:import/errors",
+  "plugin:import/warnings"
+]
+...
+"rules": {
+  "no-console": 1
+}
+```
+
+- Note:  To override a rule you need to add the name of the rule and a setting:  0 - Off, 1 - Warning, and 2 - Error
+- Add the following to the `package.json` file so we can use ESLint via eslint-watch (esw)
+
+```javascript
+"scripts": {
+  ...
+  "lint": "esw webpack.config.* src buildScripts --color",
+  ...
+}
+```
+
+- Note:  This configuration says use our webpack configuration file and watch the src and buildScripts folders
+
+- Note:  If you have an editor with built-in linting capability, disable it at this point so that it doesn't interfere with your specific linting setup here.
+
+- Now, we add an additional script to package.json in order to tell eslint-watch to continuously watch our files for changes and then add the new script to our start script:
+
+```javascript
+"scripts": {
+  "start": "npm-run-all --parallel security-check open:src lint:watch",
+  ...
+  "lint:watch": "npm run lint -- --watch",
+  ...
+}
+```
 
 
 
