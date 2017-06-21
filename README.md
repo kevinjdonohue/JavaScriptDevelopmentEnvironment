@@ -316,6 +316,104 @@ All of these changes are to be made in the "scripts" block near the top of the f
 | babel-preset-es2015-node    | Version Detection |
 | babel-preset-latest-minimal | Feature Detection |
 
+#### Build Script Style
+
+| ES5                              | Transpiled                            |
+| -------------------------------- | ------------------------------------- |
+| No waiting for transpile; faster | Enjoy the latest features             |
+| No transpiler dependency         | Consistent coding style               |
+|                                  | Use the same linting rules everywhere |
+|                                  | Can eventually remove transpiler      |
+
+Change "prestart" script to use babel-node
+
+`babel-node buildScripts/startMessage.js`
+
+
+
+## Module #7:  Bundling
+
+#### Why use bundling?
+
+- CommonJS does not work in web browsers; just NodeJS
+- Package project into file(s)
+- Improve Node performance
+
+#### Module Formats
+
+- Old Module Formats
+
+  - ##### IIFE (Immediately Invoked Function Expressions)
+
+  - ##### AMD (Asynchronous Module Definition)
+
+  - ##### CJS (CommonJS)
+
+- ##### UMD (Universal Module Definition)
+
+- ##### ES6 Modules (author's choice)
+
+  - Standardized
+  - Statically analyzable
+    - Improved autocomplete
+    - Intelligent refactoring
+    - Fails fast
+    - Tree shaking (dead code discovery?)
+  - Easy to read
+    - Named Imports
+    - Default exports
+
+#### Selecting a Bundler
+
+- OLD Bundler
+
+  - ##### Require.JS
+
+    - First popular bundler
+    - Utilizes and helped popularize AMD pattern
+
+- ##### Browserify
+
+  - Simple
+  - The first bundler to reach mass adoption
+  - Bundle npm packages for the web
+  - Large plugin ecosystem
+    - Linting, Transpiling, etc.
+
+- ##### Webpack (author's choice)
+
+  - Comprehensive
+  - Bundles more than just JavaScript
+  - Import CSS, Images, just like JavaScript
+  - Built in hot-reloading web server
+
+- ##### Rollup
+
+  - Tree shaking
+  - Faster loading production code
+  - Quite new?
+  - Great choice for library authors
+  - No hot reloading and code splitting yet
+
+- ##### JSPM
+
+  - Runtime loader
+  - Uses SystemJS; universal module loader
+  - Can load modules at runtime
+  - Has its own package manager
+  - Can install from npm, git
+  - Uses Rollup
+
+#### Webpack
+
+- More than just JavaScript
+  - CSS, Images, Fonts, HTML
+- Bundle splitting
+- Hot module reloading
+- Webpack 2 soon --> tree shaking coming
+
+
+
 ## Bibliography
 
 The Checklist Manifesto by Atul Gawande
