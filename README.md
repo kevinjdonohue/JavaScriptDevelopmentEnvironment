@@ -814,7 +814,11 @@ build: off
 
   - ##### isomorphic-fetch
 
+    - Wrapper around GitHub's implementation of fetch?
+
   - ##### xhr
+
+    - Subset of request (see above)
 
   - ##### SuperAgent
 
@@ -825,6 +829,13 @@ build: off
 
     - Full featured
     - Promise-based API
+
+### Centralize API Calls
+
+- Configure all calls
+- Handle preloader logic
+- Handle errors
+- Single seam for mocking
 
 
 
