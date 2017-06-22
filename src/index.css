@@ -5,3 +5,19 @@ body {
 table th {
   padding: 5px;
 }
+
+#container {
+  display: table;
+}
+
+#row {
+  display: table-row;
+}
+
+#column1, #id, #firstName, #lastName, #email {
+  display: table-cell;
+}
+
+.header {
+  text-align: center;
+}

@@ -749,6 +749,84 @@ As a team go through the available linting rules and decide which ones to includ
 - #### SnapCI
 
 
+### Travis
+
+Added a .travis.yml file to the project in order to leverage the TravisCI platform.  Since TravisCI is integrated into Github, once I turned CI on for the project and checked in the yaml file, then the CI kicked off automatically. TravisCI uses a Linux virtual machine to perform the CI task(s).
+
+.travis.yml - tells TravisCI to set the language to NodeJS version 6
+
+```yaml
+language: node_js
+node_js:
+  - "6"
+```
+
+### Appveyor
+
+Added a appveyor.yml file to the project in order to leverage the Appveyor platform.  Since the Appveyor is integrated, although not as well as TravisCI, the configuration is a little more involved.  Once I checked in the configuration file and setup the webhook between Github and Appveyor (which was done automagically by signing into Appveyor with my Github account), the CI kicked off automatically.  Appveyor, alternatively, uses Windows VMs to perform its CI task(s).
+
+appveyor.yml - tells Appveyor to set the language to NodeJS version 6, to install that version of NodeJS, to install all the packages by running npm install and finally to run npm test to execute the unit tests (and not to actually try to 'build' the code since its Node (JavaScript).
+
+```yaml
+environment:
+  matrix:
+  - nodejs_version: "6"
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install
+  
+test_script:
+  - node --version
+  - npm --version
+  - npm test
+  
+build: off
+```
+
+
+
+## Module #10:  HTML Calls
+
+### Approaches
+
+- #### Node
+
+  - ##### http
+
+  - ##### request (author's choice)
+
+- #### Browser
+
+  - ##### XMLHttpRequest (XHR); native JavaScript
+
+  - ##### jQuery
+
+  - ##### Framework-based [e.g. Angular]
+
+  - ##### FetchAPI (author's choice)
+
+    - WHAT working group
+    - Requires polyfill in some cases
+    - Limited feature set
+
+- #### Node & Browser
+
+  - ##### isomorphic-fetch
+
+  - ##### xhr
+
+  - ##### SuperAgent
+
+    - Full featured
+    - Plugin Ecosystem
+
+  - ##### Axios
+
+    - Full featured
+    - Promise-based API
+
+
 
 ## Bibliography
 
