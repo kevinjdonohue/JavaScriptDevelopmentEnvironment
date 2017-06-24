@@ -838,6 +838,75 @@ build: off
 - Single seam for mocking
 
 
+### FetchAPI
+
+- Add a new route to `srcServer.js` to simulate an available API endpoint called users
+
+```javascript
+app.get('/users', function (request, response) {
+  response.json([
+    { "id": 1, "firstName": "Bob", "lastName": "Smith", "email": "bob@example.com" },
+    { "id": 2, "firstName": "Tammy", "lastName": "Norton", "email": "tnorton@example.com" },
+    { "id": 3, "firstName": "Tina", "lastName": "Lee", "email": "lee.tina@example.com" },
+  ]);
+});
+```
+
+- Verify the new "API" by hitting http://localhost:3000/users in a browser
+  - To do this run `npm start` in the shell
+- Create a new folder called `API` inside the `src` folder to contain our API client implementation
+- `userApi.js`
+
+```javascript
+import 'whatwg-fetch';
+
+/* eslint-disable no-console */
+
+export function getUsers() {
+  return get('users');
+}
+
+function get(url) {
+  return fetch(url).then(onSuccess, onError);
+}
+
+function onSuccess(response) {
+  return response.json();
+}
+
+function onError(error) {
+  console.log(error);
+}
+```
+
+- `userApi.js` code is using `fetch` module; uses promises, error handling via fetch
+- `whatwg-fetch` module is a polyfil for non-modern browsers
+- Repository pattern like
+- Update `index.html` to accommodate user data
+- Recreate`index.js` to use getUsers() from `userApi.js`
+
+```javascript
+import './index.css';
+import { getUsers } from './api/userApi';
+
+getUsers().then(result => {
+  let usersBody = "";
+
+  result.forEach(user => {
+    usersBody += `<div id="row">
+                   <div id="column1"><a href="#" data-id="${user.id}" class="deleteUser">Delete</a></div>
+                   <div id="id">${user.id}</div>
+                   <div id="firstName">${user.firstName}</div>
+                   <div id="lastName">${user.lastName}</div>
+                   <div id="email">${user.email}</div>
+                </div>`
+    });
+
+    global.document.getElementById('users').outerHTML = usersBody;
+});
+```
+
+
 
 ## Bibliography
 
