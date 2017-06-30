@@ -950,6 +950,111 @@ For example, we can use Polyfill.io to *only* polyfill FetchAPI:
   - JSON Server
 
 
+#### JSON Schema Faker
+
+In order to emulate some behavior and make the test data more robust, we can employ a mocking library.  In this case we used JSON Schema Faker to generate random test data based on a schema and then used that test data from our test page.
+
+##### Details
+
+1. Added functionality to `index.js` in order to make the `delete` links work next to each user
+
+```javascript
+global.document.getElementById('users').outerHTML = usersBody;
+
+  const deleteLinks = global.document.getElementsByClassName('deleteUser');
+
+  Array.from(deleteLinks, link => {
+    link.onclick = function (event) {
+      event.preventDefault();
+
+      const element = event.target;
+      deleteUser(element.attributes["data-id"].value);
+
+      const row = element.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    };
+  });
+```
+
+2. Next, since we don't yet have a deleteUser function, we need to modify the `userApi.js` to include a deleteUser function
+   1. This new code uses the `fetch` library (see above)
+   2. This new code also uses an update version of the `getBaseUrl` function from baseUrl.js
+
+```javascript
+...
+const baseUrl = getBaseUrl();
+...
+export function deleteUser(id) {
+  return del(`users/${id}`);
+}
+...
+function del(url) {
+  const request = new Request(baseUrl + url, {
+    method: 'DELETE'
+  });
+
+  return fetch(request).then(onSuccess, onError);
+}
+...
+```
+
+```javascript
+export default function getBaseUrl() {
+  const inDevelopment = window.location.hostname === 'localhost';
+
+  return inDevelopment ? 'http://localhost:3001/' : '/';
+}
+```
+
+3. Now, the `getBaseUrl` function returns differently based on local vs. "Production"
+   1. If the code is running locally, then in returns the JSON Server URL, `http://localhost:3001/`
+4. Finally, in order to generate the fake data on the fly each time the application is started, we need to modify the `package.json` file by adding some new functions
+   1. We've created a script to generate the mock data, calling `generateMockData.js`
+   2. We've created a start (and prestart) for starting up JSON Server, which serves up the generated data from `db.json` via the JSON Server URL (`http://localhost:3001/users`)
+
+```json
+...
+"start":"npm-run-all --parallel security-check open:src lint:watch test:watch start-mockapi",
+...
+"generate-mock-data": "babel-node buildScripts/generateMockData",
+"prestart-mockapi": "npm run generate-mock-data",
+"start-mockapi": "json-server --watch src/api/db.json --port 3001"
+...
+```
+
+## Project Structure
+
+### Demo Application
+
+Provides examples of:
+
+- Directory structure and file naming
+- Framework usage
+- Testing
+- Mock API
+- Automated deployment
+- Codifies decisions
+  - coding standards, etc.
+- Interactive example of working with starter kit
+
+### Project Structure Tips
+
+- JavaScript belongs in a .js file
+- Avoid dynamically generating JavaScript logic.  Dynamically generate JSON instead
+- Consider organizing by feature (on larger projects) otherwise Organize by File Type
+
+| Organization Type     | Examples    |
+| --------------------- | ----------- |
+| Organize by File Type | /components |
+|                       | /data       |
+|                       | /models     |
+|                       | /views      |
+| Organize by Feature   | /authors    |
+|                       | /courses    |
+|                       |             |
+
+- Extract logic into POJO (Plain Old JavaScript objects)
+  - Pure logic; no framework-specific code
 
 ## Bibliography
 
