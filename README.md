@@ -906,6 +906,49 @@ getUsers().then(result => {
 });
 ```
 
+### Selective Polyfilling with Pollyfill.io
+
+For example, we can use Polyfill.io to *only* polyfill FetchAPI:
+
+```html
+<script src="https://cdn.polyfill.io/v2/polyfill.js?features=fetch"></script>
+```
+
+### Mocking HTTP
+
+- Unit Testing
+- Instant Response
+- Keep working when service are down
+- Rapid prototyping
+- avoid inter-team bottlenecks
+- Work offline
+
+#### Mocking Libraries
+
+- ##### Nock
+
+- ##### Static JSON
+
+- ##### Create development webserver
+
+  - ###### api-mock
+
+  - ###### JSON Server
+
+  - ###### JSON Schema Faker (author's choice)
+
+  - ###### Browsersync or Express
+
+#### Plan
+
+- Declare our schema via JSON Schema Faker
+- Generate Random Data
+  - faker.js
+  - chance.js
+  - randexp.js
+- Serve Data via API
+  - JSON Server
+
 
 
 ## Bibliography
